@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # first party apps
     'api',
+    'products'
 ]
 
 MIDDLEWARE = [
