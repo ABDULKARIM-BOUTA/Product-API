@@ -4,9 +4,8 @@ import requests
 # it is way of pf python to interact with django rest framework,
 # imitating a web client interacting with api
 
-#endpoint = 'https://httpbin.org/anything'
-endpoint = 'http://127.0.0.1:8000/'
+endpoint = 'http://127.0.0.1:8000/api/'
 
-response = requests.get(endpoint)
-print(response.text)
-print(response.status_code)
+response = requests.post(endpoint, json={'name':'gamepad', 'price':'30'})
+
+print(response.json())
