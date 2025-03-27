@@ -14,7 +14,7 @@ class ProductListCreateAPIView(ListCreateAPIView):
     serializer_class = ProductSerializer
 
     # Authentication and permission
-    authentication_classes = [authentication.SessionAuthentication]
+    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
 
     # using a custom permission so a staff that does not have permission can not view the product list
     # classes order is important
