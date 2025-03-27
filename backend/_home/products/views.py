@@ -1,20 +1,17 @@
 from products.serializers import ProductSerializer
-from rest_framework.generics import RetrieveAPIView, ListCreateAPIView, UpdateAPIView, DestroyAPIView, GenericAPIView
+from rest_framework.generics import RetrieveAPIView, ListCreateAPIView, UpdateAPIView, DestroyAPIView
 from products.models import Product
-from rest_framework import authentication, permissions
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
-from products.permissions import IsStaffEditorPermission
+from rest_framework import permissions
+from api.permissions import IsStaffEditorPermission
 
 class ProductDetailAPIView(RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
 
 class ProductListCreateAPIView(ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-
-    # Authentication and permission
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
 
     # using a custom permission so a staff that does not have permission can not view the product list
     # classes order is important
@@ -23,18 +20,13 @@ class ProductListCreateAPIView(ListCreateAPIView):
 class ProductUpdateAPIView(UpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-
-    # Authentication and permission
-    authentication_classes = [authentication.SessionAuthentication]
-    permission_classes = [permissions.DjangoModelPermissions]
+    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
 
 class ProductDeleteAPIView(DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
 
-    # Authentication and permission
-    authentication_classes = [authentication.SessionAuthentication]
-    permission_classes = [permissions.DjangoModelPermissions]
 # class ProductListMixinView(ListModelMixin, GenericAPIView):
 #     queryset = Product.objects.all()
 #     serializer_class = ProductSerializer
