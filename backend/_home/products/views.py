@@ -1,31 +1,23 @@
 from products.serializers import ProductSerializer
 from rest_framework.generics import RetrieveAPIView, ListCreateAPIView, UpdateAPIView, DestroyAPIView
 from products.models import Product
-from rest_framework import permissions
-from api.permissions import IsStaffEditorPermission
+from api.mixins import StaffEditorPermissionMixin
 
-class ProductDetailAPIView(RetrieveAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
-
-class ProductListCreateAPIView(ListCreateAPIView):
+class ProductDetailAPIView(StaffEditorPermissionMixin, RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-    # using a custom permission so a staff that does not have permission can not view the product list
-    # classes order is important
-    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
-
-class ProductUpdateAPIView(UpdateAPIView):
+class ProductListCreateAPIView(StaffEditorPermissionMixin, ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
 
-class ProductDeleteAPIView(DestroyAPIView):
+class ProductUpdateAPIView(StaffEditorPermissionMixin, UpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
+
+class ProductDeleteAPIView(StaffEditorPermissionMixin, DestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
 # class ProductListMixinView(ListModelMixin, GenericAPIView):
 #     queryset = Product.objects.all()
