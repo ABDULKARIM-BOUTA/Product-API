@@ -1,19 +1,20 @@
 from rest_framework import serializers
 from products.models import Product
 from products import validators
+from api.serializers import UserDataSerializer
 
 class ProductSerializer(serializers.ModelSerializer):
+    #email = serializers.EmailField(write_only=True)
     url = serializers.HyperlinkedIdentityField(view_name="products:product-detail", lookup_field='pk')
     name = serializers.CharField(validators=[validators.validate_name, validators.validate_name_no_email])
-
-    #email = serializers.EmailField(write_only=True)
+    user = UserDataSerializer(read_only=True)
 
     class Meta:
         model = Product
         fields = [
             #'email',
-            #'user',
             'url',
+            'user',
             'pk',
             'name',
             'price',
