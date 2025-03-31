@@ -3,21 +3,70 @@ from rest_framework.generics import RetrieveAPIView, ListCreateAPIView, UpdateAP
 from products.models import Product
 from api.mixins import StaffEditorPermissionMixin
 
+class ProductListCreateAPIView(StaffEditorPermissionMixin, ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def perform_create(self, serializer):
+        #the user who created the product is assigned to the product by default
+        user = self.request.user
+        serializer.save(user=user)
+
+    def get_queryset(self, *args, **kwargs):
+        user = self.request.user
+
+        if not user.is_authenticated:
+            return Product.objects.none()
+
+        if user.is_superuser:
+            return Product.objects.all()
+
+        return Product.objects.filter(user=user)
+
 class ProductDetailAPIView(StaffEditorPermissionMixin, RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-class ProductListCreateAPIView(StaffEditorPermissionMixin, ListCreateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    def get_queryset(self, *args, **kwargs):
+        user = self.request.user
+
+        if not user.is_authenticated:
+            return Product.objects.none()
+
+        if user.is_superuser:
+            return Product.objects.all()
+
+        return Product.objects.filter(user=user)
 
 class ProductUpdateAPIView(StaffEditorPermissionMixin, UpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+    def get_queryset(self, *args, **kwargs):
+        user = self.request.user
+
+        if not user.is_authenticated:
+            return Product.objects.none()
+
+        if user.is_superuser:
+            return Product.objects.all()
+
+        return Product.objects.filter(user=user)
+
 class ProductDeleteAPIView(StaffEditorPermissionMixin, DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        user = self.request.user
+
+        if not user.is_authenticated:
+            return Product.objects.none()
+
+        if user.is_superuser:
+            return Product.objects.all()
+
+        return Product.objects.filter(user=user)
 
 # class ProductListMixinView(ListModelMixin, GenericAPIView):
 #     queryset = Product.objects.all()
