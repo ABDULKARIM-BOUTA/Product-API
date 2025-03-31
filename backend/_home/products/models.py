@@ -13,3 +13,4 @@ class Product(models.Model):
     def sale_price(self):
         # 25% discount for product's price
         return f'{float(self.price) * 0.75 :.2f}'
+

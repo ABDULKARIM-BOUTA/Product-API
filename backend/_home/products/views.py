@@ -1,5 +1,5 @@
 from products.serializers import ProductSerializer
-from rest_framework.generics import RetrieveAPIView, ListCreateAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import RetrieveAPIView, ListCreateAPIView, RetrieveUpdateAPIView, DestroyAPIView
 from products.models import Product
 from api.mixins import StaffEditorPermissionMixin
 
@@ -38,9 +38,10 @@ class ProductDetailAPIView(StaffEditorPermissionMixin, RetrieveAPIView):
 
         return Product.objects.filter(user=user)
 
-class ProductUpdateAPIView(StaffEditorPermissionMixin, UpdateAPIView):
+class ProductUpdateAPIView(StaffEditorPermissionMixin, RetrieveUpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    lookup_field = 'pk'
 
     def get_queryset(self, *args, **kwargs):
         user = self.request.user
