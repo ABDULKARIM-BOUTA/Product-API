@@ -25,6 +25,8 @@ INSTALLED_APPS = [
     # third party apps
     'rest_framework',
     'rest_framework.authtoken',
+    'algoliasearch_django',
+    'algoliasearch',
 
     # first party apps
     'api',
@@ -125,6 +127,12 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly"
     ],
-   'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 5,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+                                'PAGE_SIZE': 5,
+}
+
+ALGOLIA = {
+    'APPLICATION_ID': '5SQV9GQP7J',
+    'API_KEY': '7b26b2c3715c45c9334a183cefcdae72',
+    'INDEX_PREFIX': 'kemo'
 }
