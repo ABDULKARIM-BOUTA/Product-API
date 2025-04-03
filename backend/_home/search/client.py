@@ -5,7 +5,7 @@ from django.conf import settings
 def get_client():
     return SearchClient.create(settings.ALGOLIA_APP_ID, settings.ALGOLIA_ADMIN_KEY)
 
-def get_index(index_name='cfe_Product'):
+def get_index(index_name='Product'):
     client = get_client()
     index = client.init_index(index_name)
     return index

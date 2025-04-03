@@ -12,13 +12,21 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=15, decimal_places=2)
     public = models.BooleanField(default=True)
 
-
     @property
     def sale_price(self):
         # 25% discount for product's price
         return f'{float(self.price) * 0.75 :.2f}'
 
-    
+    @property
+    def path(self):
+        return f'/product/{self.pk}'
+
+    def get_absolute_url(self):
+        return f'/api/product/{self.pk}/'
+
+    @property
+    def endpoint(self):
+        return self.get_absolute_url()
 
     def is_public(self):
         return self.public

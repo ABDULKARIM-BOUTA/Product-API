@@ -14,6 +14,8 @@ class ProductIndex(AlgoliaIndex):
         'description',
         'sale_price',
         'public',
+        'path',
+        'endpoint',
     ]
-
+    index_name = 'Products'
     tags = 'get_tags_list'

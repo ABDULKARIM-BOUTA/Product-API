@@ -6,20 +6,23 @@ from api.serializers import UserDataSerializer
 
 class ProductSerializer(serializers.ModelSerializer):
     #email = serializers.EmailField(write_only=True)
-    url = serializers.HyperlinkedIdentityField(view_name="products:product-detail", lookup_field='pk')
+    #url = serializers.HyperlinkedIdentityField(view_name="products:product-detail", lookup_field='pk')
+    update_product = serializers.HyperlinkedIdentityField(view_name='products:product-update', lookup_field='pk')
     name = serializers.CharField(validators=[validators.validate_name, validators.validate_name_no_email])
     user = UserDataSerializer(read_only=True)
-    update_product = serializers.HyperlinkedIdentityField(view_name='products:product-update', lookup_field='pk')
 
     class Meta:
         model = Product
         fields = [
             #'email',
+            #'url',
             'pk',
             'name',
             'price',
             'sale_price',
-            'url',
+            'description',
+            'path',
+            'endpoint',
             'update_product',
             'user',
         ]
