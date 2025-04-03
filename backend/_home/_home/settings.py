@@ -1,4 +1,4 @@
-
+import datetime
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     # third party apps
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'algoliasearch_django',
     'algoliasearch',
 
@@ -123,6 +124,8 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+
     ],
 
     'DEFAULT_PERMISSION_CLASSES': [
@@ -136,4 +139,10 @@ ALGOLIA = {
     'APPLICATION_ID': '5SQV9GQP7J',
     'API_KEY': '7b26b2c3715c45c9334a183cefcdae72',
     #'SEARCH_API_KEY': '06a183aeb0d9d40d8a95b4f0819e3af2',
+}
+
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ['Bearer'],
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(seconds=30),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(minutes=1),
 }
