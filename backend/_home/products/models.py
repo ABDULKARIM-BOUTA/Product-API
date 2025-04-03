@@ -12,10 +12,13 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=15, decimal_places=2)
     public = models.BooleanField(default=True)
 
+
     @property
     def sale_price(self):
         # 25% discount for product's price
         return f'{float(self.price) * 0.75 :.2f}'
+
+    
 
     def is_public(self):
         return self.public

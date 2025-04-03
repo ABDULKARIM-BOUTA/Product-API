@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     # first party apps
     'api',
     'products',
+    'search',
 ]
 
 MIDDLEWARE = [
@@ -134,5 +135,7 @@ REST_FRAMEWORK = {
 ALGOLIA = {
     'APPLICATION_ID': '5SQV9GQP7J',
     'API_KEY': '7b26b2c3715c45c9334a183cefcdae72',
-    'INDEX_PREFIX': 'kemo'
+    #'SEARCH_API_KEY': '06a183aeb0d9d40d8a95b4f0819e3af2',
+    #'INDEX_PREFIX': 'kemo',
+    #'AUTO_INDEXING': True,
 }
