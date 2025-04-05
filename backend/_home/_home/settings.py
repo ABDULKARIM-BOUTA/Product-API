@@ -1,16 +1,23 @@
-import datetime
 from pathlib import Path
+import environ
+
+# Initialize environ
+env = environ.Env()
+
+# This should load the environment variables from the .env file
+environ.Env.read_env()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w@nubpe19bd)#ko1eds2r_5oe=@+x$d48aqd!**)q78o6wq(8t'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -137,6 +144,6 @@ REST_FRAMEWORK = {
 }
 
 ALGOLIA = {
-    'APPLICATION_ID': '5SQV9GQP7J',
-    'API_KEY': '7b26b2c3715c45c9334a183cefcdae72',
+    'APPLICATION_ID': env('ALGOLIA_APPLICATION_ID'),
+    'API_KEY': env('ALGOLIA_API_KEY'),
 }
