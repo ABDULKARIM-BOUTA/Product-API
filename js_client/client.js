@@ -1,18 +1,18 @@
+const contentContainer = document.getElementById('content-container')
 const loginForm = document.getElementById('login-form')
+const searchForm = document.getElementById('search-form')
 const baseEndpoint = "http://localhost:8000/api"
 if (loginForm) {
     // handle this login form
     loginForm.addEventListener('submit', handleLogin)
-    }
+}
 
 function handleLogin(event) {
     event.preventDefault()
     const loginEndpoint = `${baseEndpoint}/token/`
-
     let loginFormData = new FormData(loginForm)
     let loginObjectData = Object.fromEntries(loginFormData)
     let bodyStr = JSON.stringify(loginObjectData)
-
     const options = {
         method: "POST",
         headers: {
@@ -20,12 +20,12 @@ function handleLogin(event) {
         },
         body: bodyStr
     }
-    fetch(loginEndpoint, options) 
+    fetch(loginEndpoint, options) //  Promise
     .then(response=>{
         return response.json()
     })
-    .then(authData => {
-        handleAuthData(authData, getProductList)
+    .then(x => {
+        console.log(x)
     })
     .catch(err=> {
         console.log('err', err)
