@@ -25,7 +25,6 @@ INSTALLED_APPS = [
     # third party apps
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_framework_simplejwt',
     'algoliasearch_django',
     'algoliasearch',
 
@@ -38,11 +37,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = '_home.urls'
@@ -138,11 +139,4 @@ REST_FRAMEWORK = {
 ALGOLIA = {
     'APPLICATION_ID': '5SQV9GQP7J',
     'API_KEY': '7b26b2c3715c45c9334a183cefcdae72',
-    #'SEARCH_API_KEY': '06a183aeb0d9d40d8a95b4f0819e3af2',
-}
-
-SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ['Bearer'],
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(seconds=30),
-    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(minutes=1),
 }

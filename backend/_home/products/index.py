@@ -1,3 +1,4 @@
+#index.py
 from algoliasearch_django import AlgoliaIndex
 from algoliasearch_django.decorators import register
 from products.models import Product
@@ -17,5 +18,5 @@ class ProductIndex(AlgoliaIndex):
         'path',
         'endpoint',
     ]
-    index_name = 'Products'
     tags = 'get_tags_list'
+
