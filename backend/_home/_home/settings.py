@@ -84,7 +84,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -155,10 +154,15 @@ ALGOLIA = {
     'API_KEY': env('ALGOLIA_API_KEY'),
 }
 
-
 PASSWORD_HASHERS = [
 'django.contrib.auth.hashers.Argon2PasswordHasher',
 'django.contrib.auth.hashers.PBKDF2PasswordHasher',
 'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 ]
+
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_SSL_REDIRECT = True  # Ensure traffic is redirected to HTTPS
+# SECURE_HSTS_SECONDS = 3600  # Enforce HTTPS (1 hour)
+# X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
