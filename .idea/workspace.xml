@@ -5,24 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81f76bff-fa74-47e4-84a2-3f2346ee63f9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/_home/.idea/_home.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/_home/products/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/_home/products/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/_home/products/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/py_client/detail.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/_home/_home/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/_home/_home/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/_home/_home/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/_home/_home/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/_home/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/_home/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/_home/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/backend/_home/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/_home/products/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/_home/products/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/_home/products/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/_home/products/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/_home/products/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/_home/products/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/py_client/basics.py" beforeDir="false" afterPath="$PROJECT_DIR$/py_client/basics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js_client/client.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js_client/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/py_client/jwt.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/py_client/list.py" beforeDir="false" afterPath="$PROJECT_DIR$/py_client/list.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -48,18 +36,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.basics.executor&quot;: &quot;Run&quot;,
-    &quot;Python.views.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Kareem/Desktop/RestAPI&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Python.basics.executor": "Run",
+    "Python.views.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "D:/Kareem/Desktop/RestAPI",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
