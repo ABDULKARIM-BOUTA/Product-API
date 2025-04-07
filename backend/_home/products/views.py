@@ -4,7 +4,6 @@ from products.models import Product
 from api.mixins import StaffEditorPermissionMixin
 
 class ProductListCreateAPIView(StaffEditorPermissionMixin, ListCreateAPIView):
-    queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
     def perform_create(self, serializer):
@@ -27,49 +26,55 @@ class ProductListCreateAPIView(StaffEditorPermissionMixin, ListCreateAPIView):
         return Product.objects.filter(user=user)
 
 class ProductDetailAPIView(StaffEditorPermissionMixin, RetrieveAPIView):
-    queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
     def get_queryset(self, *args, **kwargs):
         user = self.request.user
 
+        # unauthenticated users cant view the items
         if not user.is_authenticated:
             return Product.objects.none()
 
+        # superuser can view all the items
         if user.is_superuser:
             return Product.objects.all()
 
+        # users can see only their items
         return Product.objects.filter(user=user)
 
 class ProductUpdateAPIView(StaffEditorPermissionMixin, RetrieveUpdateAPIView):
-    queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
 
     def get_queryset(self, *args, **kwargs):
         user = self.request.user
 
+        # unauthenticated users cant view the items
         if not user.is_authenticated:
             return Product.objects.none()
 
+        # superuser can view all the items
         if user.is_superuser:
             return Product.objects.all()
 
+        # users can see only their items
         return Product.objects.filter(user=user)
 
 class ProductDeleteAPIView(StaffEditorPermissionMixin, DestroyAPIView):
-    queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
     def get_queryset(self, *args, **kwargs):
         user = self.request.user
 
+        # unauthenticated users cant view the items
         if not user.is_authenticated:
             return Product.objects.none()
 
+        # superuser can view all the items
         if user.is_superuser:
             return Product.objects.all()
 
+        # users can see only their items
         return Product.objects.filter(user=user)
 
 # class ProductListMixinView(ListModelMixin, GenericAPIView):
