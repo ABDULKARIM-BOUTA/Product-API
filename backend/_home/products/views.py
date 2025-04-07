@@ -3,6 +3,7 @@ from rest_framework.generics import RetrieveAPIView, ListCreateAPIView, Retrieve
 from products.models import Product
 from api.mixins import StaffEditorPermissionMixin
 
+
 class ProductListCreateAPIView(StaffEditorPermissionMixin, ListCreateAPIView):
     serializer_class = ProductSerializer
 

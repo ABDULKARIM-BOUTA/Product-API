@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'algoliasearch_django',
     'algoliasearch',
     'corsheaders',
+    'drf_spectacular',
 
     # first party apps
     'api',
@@ -150,6 +151,8 @@ REST_FRAMEWORK = {
         'anon': '5/minute',
         'user': '10/minute',
     },
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
 }
 
 ALGOLIA = {
@@ -171,8 +174,21 @@ AUTHENTICATION_BACKENDS = [
     'users.backends.EmailBackend',
 ]
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Your Project API',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
+
+
+
+
 # SECURE_BROWSER_XSS_FILTER = True
 # SECURE_CONTENT_TYPE_NOSNIFF = True
 # SECURE_SSL_REDIRECT = True  # Ensure traffic is redirected to HTTPS
 # SECURE_HSTS_SECONDS = 3600  # Enforce HTTPS (1 hour)
 # X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
+
+

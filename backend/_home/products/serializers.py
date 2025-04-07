@@ -29,7 +29,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def validate_name(self, value):
         """
-        check that the product name is unique, put it in the class serializer to exclude update from the unique constriant.
+        check that the product name is unique. Had to put it in the class serializer to exclude update from the unique constraint.
         """
         product_id = self.instance.pk if self.instance else None
 
@@ -55,8 +55,3 @@ class ProductSerializer(serializers.ModelSerializer):
     #     # Remove email before creation
     #     validated_data.pop('email')
     #     return super().update(instance, validated_data)
-#
-# class PriceUpdateSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Product
-#         fields = ['price']
