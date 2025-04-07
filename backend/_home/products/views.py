@@ -2,7 +2,8 @@ from products.serializers import ProductSerializer
 from rest_framework.generics import RetrieveAPIView, ListCreateAPIView, RetrieveUpdateAPIView, DestroyAPIView
 from products.models import Product
 from api.mixins import StaffEditorPermissionMixin
-
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
 class ProductListCreateAPIView(StaffEditorPermissionMixin, ListCreateAPIView):
     serializer_class = ProductSerializer
@@ -26,6 +27,10 @@ class ProductListCreateAPIView(StaffEditorPermissionMixin, ListCreateAPIView):
         # users can see only their items
         return Product.objects.filter(user=user)
 
+    @method_decorator(cache_page(timeout=60))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
 class ProductDetailAPIView(StaffEditorPermissionMixin, RetrieveAPIView):
     serializer_class = ProductSerializer
 
@@ -42,6 +47,10 @@ class ProductDetailAPIView(StaffEditorPermissionMixin, RetrieveAPIView):
 
         # users can see only their items
         return Product.objects.filter(user=user)
+
+    @method_decorator(cache_page(60))
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
 class ProductUpdateAPIView(StaffEditorPermissionMixin, RetrieveUpdateAPIView):
     serializer_class = ProductSerializer
