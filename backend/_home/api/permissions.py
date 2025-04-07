@@ -1,6 +1,7 @@
 from rest_framework.permissions import DjangoModelPermissions
 
 # using a custom permission so a staff that does not have permission can not view the product list
+# staff permissions are set in django admin page
 class IsStaffEditorPermission(DjangoModelPermissions):
     perms_map = {
         'GET': ['%(app_label)s.view_%(model_name)s'],

@@ -15,12 +15,15 @@ class ProductListCreateAPIView(StaffEditorPermissionMixin, ListCreateAPIView):
     def get_queryset(self, *args, **kwargs):
         user = self.request.user
 
+        # unauthenticated users cant view the items
         if not user.is_authenticated:
             return Product.objects.none()
 
+        # superuser can view all the items
         if user.is_superuser:
             return Product.objects.all()
 
+        # users can see only their items
         return Product.objects.filter(user=user)
 
 class ProductDetailAPIView(StaffEditorPermissionMixin, RetrieveAPIView):
