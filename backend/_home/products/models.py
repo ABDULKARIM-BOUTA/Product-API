@@ -1,8 +1,7 @@
 from django.db import models
-from django.conf import settings
+from users.models import User
 import random
 
-User = settings.AUTH_USER_MODEL        # auth.user
 TAG_MODEL_VALUES = ['GPU', 'CPU', 'Storage']
 
 class Product(models.Model):

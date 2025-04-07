@@ -35,11 +35,13 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'algoliasearch_django',
     'algoliasearch',
+    'corsheaders',
 
     # first party apps
     'api',
     'products',
     'search',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 
 ]
 
@@ -160,6 +163,10 @@ PASSWORD_HASHERS = [
 'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 ]
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
+
 
 # SECURE_BROWSER_XSS_FILTER = True
 # SECURE_CONTENT_TYPE_NOSNIFF = True
