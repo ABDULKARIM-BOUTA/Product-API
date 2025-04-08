@@ -1,6 +1,7 @@
 import os.path
 from pathlib import Path
 import environ
+import dj_database_url
 
 # Initialize environ
 env = environ.Env()
@@ -83,10 +84,11 @@ WSGI_APPLICATION = '_home.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=env('DATABASE_URL'),  # Uses Render's PostgreSQL URL
+        conn_max_age=600,  # Optional: Improves performance with persistent connections
+        ssl_require=True   # Enforces SSL (required for Render)
+    )
 }
 
 # Password validation
