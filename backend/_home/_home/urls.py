@@ -2,10 +2,11 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
-
+from products.views import ProductListCreateAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', ProductListCreateAPIView.as_view()),
     path('api/', include('api.urls')),
     path('api/product/', include('products.urls')),
     path('api/search/', include('search.urls')),
