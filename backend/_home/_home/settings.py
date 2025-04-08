@@ -48,13 +48,12 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-
 ]
 
 ROOT_URLCONF = '_home.urls'
@@ -184,11 +183,12 @@ SPECTACULAR_SETTINGS = {
 
 
 
-
 # SECURE_BROWSER_XSS_FILTER = True
 # SECURE_CONTENT_TYPE_NOSNIFF = True
 # SECURE_SSL_REDIRECT = True  # Ensure traffic is redirected to HTTPS
 # SECURE_HSTS_SECONDS = 3600  # Enforce HTTPS (1 hour)
 # X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
 
-
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",  # React dev server
+# ]
