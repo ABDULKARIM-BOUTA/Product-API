@@ -44,6 +44,23 @@ class ProductUpdateAPIView(IsOwnerOrSuperuser, RetrieveUpdateAPIView):
     serializer_class = ProductSerializer
     lookup_field = 'pk'
 
+    def perform_update(self, serializer):
+        user = self.request.user
+        product = self.get_object()
+
+        # Staff can update any product
+        if user.is_staff:
+            serializer.save()
+
+        # Non-staff can only update their own products
+        elif product.user == user and user.is_active:
+            serializer.save()
+
+        else:
+            raise PermissionDenied(
+                "You can only update your own products."
+            )
+
     # def get_queryset(self, *args, **kwargs):
     #     user = self.request.user
     #
