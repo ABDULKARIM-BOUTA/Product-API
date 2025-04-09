@@ -2,9 +2,11 @@ from products.serializers import ProductSerializer
 from rest_framework.generics import RetrieveAPIView, ListCreateAPIView, RetrieveUpdateAPIView, DestroyAPIView
 from products.models import Product
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from api.mixins import StaffEditorPermissionMixin
+from users.mixins import StaffEditorPermissionMixin
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
+from users.permissions import IsOwnerOrSuperuser
+from rest_framework.exceptions import PermissionDenied
 
 class ProductListCreateAPIView(ListCreateAPIView):
     serializer_class = ProductSerializer
@@ -18,7 +20,10 @@ class ProductListCreateAPIView(ListCreateAPIView):
     def perform_create(self, serializer):
         #the user who created the product is assigned to the product by default
         user = self.request.user
-        serializer.save(user=user)
+        if user.is_active:      # Ensure the user is active
+            serializer.save(user=user)
+        else:
+            raise PermissionDenied("Only active users can create products.")
 
     # caching for a minute
     @method_decorator(cache_page(timeout=15))
@@ -34,26 +39,28 @@ class ProductDetailAPIView(RetrieveAPIView):
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
-class ProductUpdateAPIView(StaffEditorPermissionMixin, RetrieveUpdateAPIView):
+class ProductUpdateAPIView(IsOwnerOrSuperuser, RetrieveUpdateAPIView):
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
 
-    def get_queryset(self, *args, **kwargs):
-        user = self.request.user
-
-        # unauthenticated users cant view the items
-        if not user.is_authenticated:
-            return Product.objects.none()
-
-        # superuser can view all the items
-        if user.is_superuser:
-            return Product.objects.all()
-
-        # users can see only their items
-        return Product.objects.filter(user=user)
+    # def get_queryset(self, *args, **kwargs):
+    #     user = self.request.user
+    #
+    #     # unauthenticated users cant view the items
+    #     if not user.is_authenticated:
+    #         return Product.objects.none()
+    #
+    #     # superuser can view all the items
+    #     if user.is_superuser:
+    #         return Product.objects.all()
+    #
+    #     # users can see only their items
+    #     return Product.objects.filter(user=user)
 
 class ProductDeleteAPIView(StaffEditorPermissionMixin, DestroyAPIView):
     serializer_class = ProductSerializer
+    queryset = Product.objects.all()
 
     def get_queryset(self, *args, **kwargs):
         user = self.request.user
@@ -68,6 +75,12 @@ class ProductDeleteAPIView(StaffEditorPermissionMixin, DestroyAPIView):
 
         # users can see only their items
         return Product.objects.filter(user=user)
+
+
+
+
+
+
 
 # class ProductListMixinView(ListModelMixin, GenericAPIView):
 #     queryset = Product.objects.all()

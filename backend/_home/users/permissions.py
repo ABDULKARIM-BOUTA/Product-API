@@ -1,4 +1,15 @@
-from rest_framework.permissions import DjangoModelPermissions
+from rest_framework.permissions import DjangoModelPermissions, BasePermission, SAFE_METHODS
+
+class IsOwnerOrSuperuser(BasePermission):
+    """
+        custom permission to only allow owners of an object to edit it,
+        or superuser to edit any object.
+        """
+
+    def has_object_permission(self, request, view, obj):
+        if request.method == SAFE_METHODS:
+            return True
+        return obj.user == request.user or request.user.is_superuser
 
 # using a custom permission so a staff that does not have permission can not view the product list
 # staff permissions are set in django admin page

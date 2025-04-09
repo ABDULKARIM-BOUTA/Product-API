@@ -1,4 +1,4 @@
-from api.permissions import IsStaffEditorPermission
+from users.permissions import IsStaffEditorPermission
 from rest_framework import permissions
 
 class StaffEditorPermissionMixin():
