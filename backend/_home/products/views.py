@@ -1,6 +1,7 @@
 from products.serializers import ProductSerializer
 from rest_framework.generics import RetrieveAPIView, ListCreateAPIView, RetrieveUpdateAPIView, DestroyAPIView
 from products.models import Product
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from api.mixins import StaffEditorPermissionMixin
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
@@ -9,13 +10,18 @@ class ProductListCreateAPIView(ListCreateAPIView):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
 
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        return [IsAuthenticated()]
+
     def perform_create(self, serializer):
         #the user who created the product is assigned to the product by default
         user = self.request.user
         serializer.save(user=user)
 
     # caching for a minute
-    @method_decorator(cache_page(timeout=60))
+    @method_decorator(cache_page(timeout=15))
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
