@@ -27,6 +27,7 @@ class ProductListCreateAPIView(StaffEditorPermissionMixin, ListCreateAPIView):
         # users can see only their items
         return Product.objects.filter(user=user)
 
+    # caching for a minute
     @method_decorator(cache_page(timeout=60))
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
@@ -48,6 +49,7 @@ class ProductDetailAPIView(StaffEditorPermissionMixin, RetrieveAPIView):
         # users can see only their items
         return Product.objects.filter(user=user)
 
+    # caching for a minute
     @method_decorator(cache_page(60))
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)

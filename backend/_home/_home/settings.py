@@ -1,7 +1,7 @@
 import os.path
 from pathlib import Path
 import environ
-import dj_database_url
+from datetime import timedelta
 
 # Initialize environ
 env = environ.Env()
@@ -83,16 +83,22 @@ WSGI_APPLICATION = '_home.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': env('DB_ENGINE'),
+#         'NAME': env('DB_NAME'),
+#         'USER': env('DB_USER'),
+#         'PASSWORD': env('DB_PASSWORD'),
+#         'HOST': env('DB_HOST'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': env('DB_ENGINE'),
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',  # Default path
     }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -183,7 +189,7 @@ AUTHENTICATION_BACKENDS = [
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Your Project API',
-    'DESCRIPTION': 'Your project description',
+    'DESCRIPTION': 'Django RESTful API',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
@@ -196,3 +202,8 @@ if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_HSTS_SECONDS = 3600  # Enforce HTTPS (1 hour)
     X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
