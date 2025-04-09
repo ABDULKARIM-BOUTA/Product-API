@@ -5,49 +5,23 @@ from api.mixins import StaffEditorPermissionMixin
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 
-class ProductListCreateAPIView(StaffEditorPermissionMixin, ListCreateAPIView):
+class ProductListCreateAPIView(ListCreateAPIView):
     serializer_class = ProductSerializer
+    queryset = Product.objects.all()
 
     def perform_create(self, serializer):
         #the user who created the product is assigned to the product by default
         user = self.request.user
         serializer.save(user=user)
 
-    def get_queryset(self, *args, **kwargs):
-        user = self.request.user
-
-        # unauthenticated users cant view the items
-        if not user.is_authenticated:
-            return Product.objects.none()
-
-        # superuser can view all the items
-        if user.is_superuser:
-            return Product.objects.all()
-
-        # users can see only their items
-        return Product.objects.filter(user=user)
-
     # caching for a minute
     @method_decorator(cache_page(timeout=60))
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
-class ProductDetailAPIView(StaffEditorPermissionMixin, RetrieveAPIView):
+class ProductDetailAPIView(RetrieveAPIView):
     serializer_class = ProductSerializer
-
-    def get_queryset(self, *args, **kwargs):
-        user = self.request.user
-
-        # unauthenticated users cant view the items
-        if not user.is_authenticated:
-            return Product.objects.none()
-
-        # superuser can view all the items
-        if user.is_superuser:
-            return Product.objects.all()
-
-        # users can see only their items
-        return Product.objects.filter(user=user)
+    queryset = Product.objects.all()
 
     # caching for a minute
     @method_decorator(cache_page(60))
