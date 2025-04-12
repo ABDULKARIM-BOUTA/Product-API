@@ -2,6 +2,7 @@ import os.path
 from pathlib import Path
 import environ
 from datetime import timedelta
+import dj_database_url
 
 # Initialize environ
 env = environ.Env()
@@ -83,22 +84,10 @@ WSGI_APPLICATION = '_home.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': env('DB_ENGINE'),
-#         'NAME': env('DB_NAME'),
-#         'USER': env('DB_USER'),
-#         'PASSWORD': env('DB_PASSWORD'),
-#         'HOST': env('DB_HOST'),
-#     }
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',  # Default path
-    }
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
+
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
