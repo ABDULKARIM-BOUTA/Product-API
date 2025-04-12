@@ -3,6 +3,10 @@ from products.models import Product
 from products import validators
 from api.serializers import UserDataSerializer
 from rest_framework.exceptions import ValidationError
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class ProductSerializer(serializers.ModelSerializer):
     #email = serializers.EmailField(write_only=True)
@@ -28,23 +32,37 @@ class ProductSerializer(serializers.ModelSerializer):
         ]
 
     def validate_name(self, value):
-        """
-        check that the product name is unique. Had to put it in the class serializer to exclude update from the unique constraint.
-        """
-        product_id = self.instance.pk if self.instance else None
-
-        # Query products with the same name (case-insensitive)
-        queryset = Product.objects.filter(name__iexact=value)
-
-        # Exclude the current product if updating
-        if product_id:
-            queryset = queryset.exclude(pk=product_id)
-
-        # If another product with the same name exists, raise an error
-        if queryset.exists():
-            raise ValidationError(f'{value} already exists')
-
+        try:
+            product_id = self.instance.pk if self.instance else None
+            queryset = Product.objects.filter(name__iexact=value)
+            if product_id:
+                queryset = queryset.exclude(pk=product_id)
+            if queryset.exists():
+                raise ValidationError(f'{value} already exists')
+        except Exception as e:
+            logger.error(f"Validation failed for product name '{value}': {str(e)}")
+            raise
         return value
+
+
+
+        # """
+        # check that the product name is unique. Had to put it in the class serializer to exclude update from the unique constraint.
+        # """
+        # product_id = self.instance.pk if self.instance else None
+        #
+        # # Query products with the same name (case-insensitive)
+        # queryset = Product.objects.filter(name__iexact=value)
+        #
+        # # Exclude the current product if updating
+        # if product_id:
+        #     queryset = queryset.exclude(pk=product_id)
+        #
+        # # If another product with the same name exists, raise an error
+        # if queryset.exists():
+        #     raise ValidationError(f'{value} already exists')
+        #
+        # return value
 
     # def create(self, validated_data):
     #     # Remove email before creation
