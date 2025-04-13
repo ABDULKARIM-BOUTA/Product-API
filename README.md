@@ -47,29 +47,38 @@ Project Structure:
 Getting Started
 
 Clone the repository
+  
   git clone https://github.com/ABDULKARIM-BOUTA/Rest-API.git
+  
   cd Rest-API
 
 Create a virtual environment
+  
   python -m venv venv
+  
   venv\Scripts\activate
 
 Set up environment variables and Create a .env file:
+ 
   SECRET_KEY=your_secret_key_here
   DEBUG=True
   ALGOLIA_APPLICATION_ID=your_algolia_app_id
   ALGOLIA_API_KEY=your_algolia_api_key
 
 Install dependencies
+  
   pip install -r requirements.txt
 
 Run migrations
+  
   python manage.py migrate
 
 Create a superuser
+
   python manage.py createsuperuser
 
 Start the development server
+
   python manage.py runserver
 
 to use the search function you need to have an Algolia account
