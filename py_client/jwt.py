@@ -16,8 +16,8 @@ class JWTClient:
     refresh: str = None
     # ensure this matches your simplejwt config
     header_type: str = "Bearer"
-    # this assumes you have DRF running on localhost:8000
-    base_endpoint = "http://localhost:8000/api"
+
+    base_endpoint = "https://rest-api-dj.up.railway.app/api"
     # this file path is insecure
     cred_path: pathlib.Path = pathlib.Path("creds.json")
 
@@ -87,15 +87,10 @@ class JWTClient:
         }
 
     def perform_auth(self):
-        """
-        Simple way to perform authentication
-        Without exposing password(s) during the
-        collection process.
-        """
         endpoint = f"{self.base_endpoint}/token/"
-        username = input("What is your username?\n")
+        email = input("What is your email?\n")
         password = input("What is your password?\n")
-        r = requests.post(endpoint, json={'username': username, 'password': password})
+        r = requests.post(endpoint, json={'email': email, 'password': password})
         if r.status_code != 200:
             raise Exception(f"Access not granted: {r.text}")
         print('access granted')
@@ -172,7 +167,7 @@ class JWTClient:
         """
         headers = self.get_headers()
         if endpoint is None or self.base_endpoint not in str(endpoint):
-            endpoint = f"{self.base_endpoint}/product/list-create/"
+            endpoint = f"{self.base_endpoint}/product/list/"
         r = requests.get(endpoint, headers=headers)
         if r.status_code != 200:
             raise Exception(f"Request not complete {r.text}")
