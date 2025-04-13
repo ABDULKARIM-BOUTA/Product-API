@@ -11,7 +11,7 @@ if auth_response.status_code == 200:
     token = auth_response.json()['token']
     headers = { 'Authorization': f'token {token}'}
 
-    endpoint = 'http://127.0.0.1:8000/api/product/list-create/'
+    endpoint = 'http://127.0.0.1:8000/api/product/create/'
     data = {
         'name': 'I9-11700',
         'price': '275'
