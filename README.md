@@ -1,7 +1,9 @@
 Rest-API
+
 A robust Django REST Framework API with custom user authentication using JWT, product search using Algolia, and a clean, scalable structure for real-world projects.
 
 Live Demo:
+
 Deployed on Railway
 
 Features:
@@ -26,12 +28,19 @@ Tech Stack:
 Project Structure:
   
   ├── api/               # API-wide settings and utils
+
   ├── products/          # Product app (CRUD, list, search)
+  
   ├── users/             # Custom user model, auth backends
+  
   ├── search/            # Algolia search indexing
+  
   ├── _home/             # Django settings and core urls
+  
   ├── py_client/         # Python client for testing the API
+  
   ├── requirements.txt   # Python dependencies
+  
   └── manage.py
 
 
