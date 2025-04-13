@@ -1,8 +1,8 @@
 import os.path
 from pathlib import Path
 import environ
-from datetime import timedelta
 import dj_database_url
+from datetime import timedelta
 
 # Initialize environ
 env = environ.Env()
@@ -10,18 +10,15 @@ env = environ.Env()
 # This should load the environment variables from the .env file
 environ.Env.read_env()
 
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    'rest-api-dj.up.railway.app',
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -50,6 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Correct placement
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,7 +55,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = '_home.urls'
@@ -83,9 +80,20 @@ WSGI_APPLICATION = '_home.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    'default': dj_database_url.config(
+        default=env('DATABASE_URL'),  # Uses Render's PostgreSQL URL
+        conn_max_age=600,  # Optional: Improves performance with persistent connections
+        ssl_require=True   # Enforces SSL (required for Render)
+    )
 }
 
 # Password validation
@@ -150,8 +158,8 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle'
     ],
     'DEFAULT_THROTTLE_RATES': {       # limit requests
-        'anon': '5/minute',
-        'user': '10/minute',
+        'anon': '10/minute',
+        'user': '15/minute',
     },
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 
@@ -178,21 +186,45 @@ AUTHENTICATION_BACKENDS = [
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Your Project API',
-    'DESCRIPTION': 'Django RESTful API',
+    'DESCRIPTION': 'Your project description',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
-
-if not DEBUG:
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
-    SECURE_SSL_REDIRECT = True
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_HSTS_SECONDS = 3600  # Enforce HTTPS (1 hour)
-    X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+# Security settings (only in production)
+if not DEBUG:
+    # Core security settings
+    SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Important for Railway
+
+    # Cookie settings
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_HTTPONLY = True
+
+    # Headers protection
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
+
+    SECURE_HSTS_SECONDS = 30 * 24 * 60 * 60  # 30 days
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+
+    # CSRF settings
+    CSRF_TRUSTED_ORIGINS = [
+        'https://rest-api-dj.up.railway.app',
+    ]
+
+    CORS_ALLOWED_ORIGINS = [
+        'https://rest-api-dj.up.railway.app',
+        ]
+
+    CORS_ALLOW_CREDENTIALS = True
+

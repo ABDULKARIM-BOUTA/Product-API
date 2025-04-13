@@ -1,6 +1,6 @@
 import requests
 
-auth_endpoint = 'http://127.0.0.1:8000/api/auth/'
+auth_endpoint = 'https://rest-api-dj.up.railway.app/api/auth/'
 username = input('Username:')
 password = input('Password:')
 
@@ -11,12 +11,10 @@ if auth_response.status_code == 200:
     token = auth_response.json()['token']
     headers = {'Authorization': f'token {token}'}
 
-    item_pk = 7        # replace item_pk with the desired item pk
-    endpoint = f'http://127.0.0.1:8000/api/product/{item_pk}/update/'
+    item_pk = 6        # replace item_pk with the desired item pk
+    endpoint = f'https://rest-api-dj.up.railway.app/api/product/{item_pk}/update/'
     data = {
-        'name' : '3060',
-        'price': '250',
-        'description': 'laptop gpu'
+        'price': '70',
     }
 
     response = requests.patch(endpoint, headers=headers, json=data)

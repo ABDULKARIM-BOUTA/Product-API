@@ -1,6 +1,6 @@
 import requests
 
-auth_endpoint = 'http://127.0.0.1:8000/api/auth/'
+auth_endpoint = 'https://rest-api-dj.up.railway.app/api/auth/'
 username = input('Username:')
 password = input('Password:')
 
@@ -11,10 +11,12 @@ if auth_response.status_code == 200:
     token = auth_response.json()['token']
     headers = { 'Authorization': f'token {token}'}
 
-    endpoint = 'http://127.0.0.1:8000/api/product/create/'
+    endpoint = 'https://rest-api-dj.up.railway.app/api/product/create/'
+
+    # new record's data
     data = {
-        'name': 'I9-11700',
-        'price': '275'
+        'name': 'Shadow Of The Coluses',
+        'price': '45'
     }
     response = requests.post(endpoint, data=data, headers=headers)
     print(response.json())
