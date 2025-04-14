@@ -6,6 +6,7 @@ Live Demo:
 
 rest-api-dj.up.railway.app/
 
+
 Features:
 
   -JWT Authentication (SimpleJWT)
