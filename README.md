@@ -4,8 +4,7 @@ A robust Django REST Framework API with custom user authentication using JWT, pr
 
 Live Demo:
 
-rest-api-dj.up.railway.app/
-
+[Rest-Api](https://rest-api-dj.up.railway.app/)
 
 Features:
 
