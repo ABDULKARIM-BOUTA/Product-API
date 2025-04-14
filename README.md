@@ -1,6 +1,6 @@
 Rest-API
 
-A Django REST Framework API with custom user authentication using JWT, product search using Algolia
+A Django REST Framework API with custom user authentication using JWT, and product search using Algolia
 
 Live Demo:
 
