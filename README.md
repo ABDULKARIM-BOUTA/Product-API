@@ -1,7 +1,6 @@
 Rest-API
 
-A Django REST Framework API with custom user authentication using JWT, and Algolia search
-
+Developed a Django REST Framework API featuring custom user authentication using JWT and integrated Algolia for advanced search capabilities.
 Live Demo:
 
 [Rest-Api](https://rest-api-dj.up.railway.app/)
