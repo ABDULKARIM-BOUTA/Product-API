@@ -1,11 +1,12 @@
-Rest-API
+# Product-API
 
-Developed a Django REST Framework API featuring custom user authentication using JWT and integrated Algolia for advanced search capabilities.
+A Django REST Framework API featuring custom user authentication using JWT and integrated Algolia for advanced search capabilities.
+
 Live Demo:
 
 [Rest-Api](https://rest-api-dj.up.railway.app/)
 
-Features:
+# Features:
 
   -JWT Authentication (SimpleJWT)
   -Custom user model with email login
@@ -15,7 +16,7 @@ Features:
   -Token refresh, throttle limits, and pagination
   -CORS support & secure deployment configs
 
-Tech Stack:
+# Tech Stack:
 
   -Backend: Django, Django REST Framework
   -Auth: JWT (SimpleJWT)
@@ -24,7 +25,7 @@ Tech Stack:
   -Deployment: Render
   -Database: PostgreSQL
 
-Project Structure:
+# Project Structure:
   
   ├── api/               # API-wide settings and utils
 
@@ -43,7 +44,7 @@ Project Structure:
   └── manage.py
 
 
-Getting Started
+# To use it locally
 
 Clone the repository
   
