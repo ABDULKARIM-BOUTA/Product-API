@@ -1,6 +1,6 @@
 # Product-API
 
-A Django REST Framework API featuring custom user authentication using JWT and integrated Algolia for advanced search capabilities.
+A Django REST Framework API that manages and creates products featuring custom user authentication using JWT and integrated Algolia for advanced search capabilities.
 
 Live Demo:
 
